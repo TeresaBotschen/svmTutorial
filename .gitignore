@@ -1,0 +1,8 @@
+.conda/
+.ipynb_checkpoints/
+.virtual_documents/
+.vscode
+linear_data.csv
+nonlinear_data.csv
+test.py
+__pycache__/
