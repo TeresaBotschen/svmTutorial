@@ -1,9 +1,9 @@
 """ Erstellung der beiden Datasets fuer svm_tutorial.ipynb.
 
 data/linear_data.csv     zwei linear separierbare Punktwolken, Gaussian gesampled
-data/nonlinear_data.csv  zwei ringfoermige Punktwolken, nicht linear separierbar
+data/nonlinear_data.csv  zwei ringfoermige Punktwolken als konzentrische Kreise, nicht linear separierbar
 
-Labels sind als -1 / +1 kodiert.
+Labels sind als +1 / -1 kodiert (Klasse A hat Label +1 / Klasse B hat Label -1).
 """
 
 # (1) Dependencies
@@ -19,7 +19,10 @@ OUT.mkdir(exist_ok=True)
 # (3) Fixieren des random seeds, um jedes Mal dieselben Daten zu samplen
 rng = np.random.default_rng(7)
 
+#####################################################################################################
 # (4) Linear separierbare Daten. 
+# zwei linear separierbare Punktwolken
+#####################################################################################################
 #
 # n = 60 Datenpunkte
 # Klasse 1: um Zentrum -1.6 / -1.4 verteilt
@@ -55,7 +58,11 @@ pd.DataFrame({"x1": features[idx, 0].round(4), "x2": features[idx, 1].round(4), 
     OUT / "linear_data.csv", index=False
 )
 
-# (5) Ringfoermige Punktwolken, eine innere und eine aeussere (in und out)
+#####################################################################################################
+# (5) Nicht linear separierbare Daten. 
+# zwei ringfoermige Punktwolken als konzentrische Kreise, ein innerer und ein aeusserer (in und out) 
+#####################################################################################################
+#
 #     Jeweils 150 Punkte
 #     Eine Wolke ist um den Radius 1.0 verteilt, die andere um den Radius 2.4
 #     Wir samplen zum einen den Radius, zum anderen zwischen 0 und 360 Grad
@@ -79,4 +86,5 @@ idx = rng.permutation(len(labels))
 pd.DataFrame({"x1": features[idx, 0].round(4), "x2": features[idx, 1].round(4), "label": labels[idx]}).to_csv(
     OUT / "nonlinear_data.csv", index=False
 )
+
 print("wrote", OUT / "linear_data.csv", "and", OUT / "nonlinear_data.csv")
